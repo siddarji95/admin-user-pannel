@@ -102,4 +102,12 @@ router.post("/login", (req, res) => {
   });
 });
 
+router.get('/show_users', function(req, res) {
+    User.find({},function(err, result) {
+        if (err) throw err;
+        res.send(result);
+        console.log(result)
+    });
+})
+
 module.exports = router;

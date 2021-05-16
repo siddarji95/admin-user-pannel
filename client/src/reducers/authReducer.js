@@ -1,9 +1,11 @@
 import { PRESENT_USER } from "../actions/actions";
+import { SHOW_USERS } from "../actions/actions";
 import isEmpty from "../validation/isEmpty";
 
 const initialState = {
   isAuthenticated: false,
-  user: {}
+  user: {},
+  allUsers: null,
 };
 
 export default function(state = initialState, action) {
@@ -14,6 +16,11 @@ export default function(state = initialState, action) {
         isAuthenticated: !isEmpty(action.payload),
         user: action.payload
       };
+    case SHOW_USERS:
+      return {
+        ...state,
+        allUsers: action.payload
+      }
     default:
       return state;
   }

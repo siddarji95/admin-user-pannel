@@ -1,5 +1,6 @@
 import { GET_ERRORS } from "././actions";
 import { PRESENT_USER } from "././actions";
+import { SHOW_USERS } from "././actions";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
@@ -40,6 +41,26 @@ export const userLogin = userInfo => dispatch => {
     );
 };
 
+export const getUsers = () => dispatch => {
+  axios
+    .get("/api/users/show_users")
+    .then(res => {
+      dispatch(showUsers(res.data))
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+}
+
+export const showUsers = data => {
+  return {
+    type: SHOW_USERS,
+    payload: data
+  };
+}
 //set logged in user
 export const setPresentUser = decoded => {
   return {

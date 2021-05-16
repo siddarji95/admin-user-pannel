@@ -7,6 +7,7 @@ import Landing from "./components/layout/Landing";
 import RegisterPanel from "./components/authPanel/RegisterPanel";
 import LoginPanel from "./components/authPanel/LoginPanel";
 import Dashboard from "./components/dashboard/Dashboard";
+import ShowUsers from "./components/dashboard/ShowUsers";
 import PrivateRoute from "./components/common/PrivateRoute";
 
 import store from "./store";
@@ -26,6 +27,7 @@ class App extends Component {
               <Route exact path="/login" component={LoginPanel} />
               <Switch>
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                <PrivateRoute exact path="/show_users" component={ShowUsers} />
               </Switch>
             </div>
           </div>
