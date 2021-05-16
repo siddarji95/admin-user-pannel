@@ -13,9 +13,9 @@ class Navbar extends Component {
   render() {
     const { isAuthenticated } = this.props.auth;
     const guestLinks = ( //These links will be shown when user isn't logged in
-        <div>
+        <div className= "nav flex-column pl-1">
           <Link className="nav-link" to="/register">
-            Add User
+           Sign Up
           </Link>
           <Link className="nav-link" to="/login">
             Login
@@ -34,19 +34,15 @@ class Navbar extends Component {
     );
 
     return (
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-3 px-1 position-fixed" id="sticky-sidebar">
+          <div className="col-3 px-1">
             <div className="nav flex-column flex-nowrap vh-100 overflow-auto text-white p-2">
               <Link className="nav-link" to="/">
-                <img src={require('./logo.png')} className="img-fluid" alt=""/>
+                <img src={require('../../img/logo.png')} className="img-fluid" alt=""/>
           </Link>
            {/* Check for which links are to be shown  */}
            {isAuthenticated ? authLinks : guestLinks}
             </div>
           </div>
-        </div>
-      </div>
     );
   }
 }

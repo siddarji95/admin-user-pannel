@@ -54,11 +54,10 @@ class RegisterPanel extends Component {
     const { errors } = this.state;
 
     return (
-      <div className="register">
             <div className="col-6 m-auto">
               <div className="card mt-4">
                 <div className="card-header bg-primary">
-                  <h1 className="display-4 text-white text-center">Add User</h1>
+                  <h1 className="display-4 text-white text-center">Sign Up</h1>
                 </div>
                 <div className="card-body bg-light">
                   <p className="lead text-dark text-center">
@@ -101,13 +100,12 @@ class RegisterPanel extends Component {
                     <input
                       type="submit"
                       className="btn btn-danger btn-block mt-4"
-                      value="Add User"
+                      value="Sign Up"
                     />
                   </form>
                 </div>
               </div>
             </div>
-          </div>
     );
   }
 }

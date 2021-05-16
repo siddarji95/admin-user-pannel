@@ -53,9 +53,6 @@ class LoginPanel extends Component {
     const { errors } = this.state;
 
     return (
-      <div className="login">
-        <div className="container">
-          <div className="row">
             <div className="col-6 m-auto">
               <div className="card mt-4">
                 <div className="card-header bg-primary">
@@ -91,9 +88,6 @@ class LoginPanel extends Component {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
     );
   }
 }

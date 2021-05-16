@@ -4,7 +4,6 @@ import { Provider } from "react-redux";
 
 import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
-import Footer from "./components/layout/Footer";
 import RegisterPanel from "./components/authPanel/RegisterPanel";
 import LoginPanel from "./components/authPanel/LoginPanel";
 import Dashboard from "./components/dashboard/Dashboard";
@@ -20,6 +19,7 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div className="App">
+            <div className="row">
             <Navbar />
             <Route exact path="/" component={Landing} />
               <Route exact path="/register" component={RegisterPanel} />
@@ -27,7 +27,7 @@ class App extends Component {
               <Switch>
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
               </Switch>
-            <Footer />
+            </div>
           </div>
         </Router>
       </Provider>

@@ -6,17 +6,11 @@ class Dashboard extends Component {
   render() {
     const { user } = this.props.auth;
 
-    return (
-      <div className="dashboard">
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <h1 className="display-4 text-white">Dashboard</h1>
-              <h3 className="text-white mt-4">Welcome, {user.name}!</h3>
-            </div>
-          </div>
+    return ( 
+        <div className="col-6 m-auto dashboard">
+          <h1 className="display-4">Dashboard</h1>
+          <h3 className="mt-4">Welcome, {user.name}!</h3>
         </div>
-      </div>
     );
   }
 }
