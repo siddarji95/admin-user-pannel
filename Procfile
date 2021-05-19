@@ -1,1 +1,1 @@
-web: npm start --prefix client; node index.js
+web: npm run dev
