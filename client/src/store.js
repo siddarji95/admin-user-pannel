@@ -1,4 +1,3 @@
-//Creation of store and setting up app with chrome devtools
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension/logOnly";

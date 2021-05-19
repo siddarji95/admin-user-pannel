@@ -31,12 +31,10 @@ class RegisterPanel extends Component {
     }
   }
 
-  //Function which changes the fields as you type
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  //Preventing default form submit action
   onSubmit(e) {
     e.preventDefault();
 

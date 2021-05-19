@@ -1,16 +1,12 @@
-//For all login field checks
 const Validator = require("validator");
 const isEmpty = require("./isEmpty");
 
 module.exports = function loginInputValidate(input) {
-  //Keeps all the errors in an object
   let errors = {};
 
-  //Here input fields are set to either the validated entered value or kept as empty
   input.email = !isEmpty(input.email) ? input.email : "";
   input.password = !isEmpty(input.password) ? input.password : "";
 
-  //All validation checks
   if (!Validator.isEmail(input.email)) {
     errors.email = "Incorrect Email";
   }

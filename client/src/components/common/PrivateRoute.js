@@ -1,4 +1,3 @@
-//Private route which only registered users can access
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";

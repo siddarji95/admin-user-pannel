@@ -17,8 +17,7 @@ const TextFieldGroup = ({
       <input
         type={type}
         className={classnames("form-control form-control-lg", {
-          //Used classnames package for conditional class setup
-          "is-invalid": error //Bootstrap class will be changed to is-invalid if error is present which we are passing in the component
+          "is-invalid": error
         })}
         placeholder={placeholder}
         name={name}

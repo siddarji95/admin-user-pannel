@@ -6,13 +6,13 @@ import { logoutUser } from "../../actions/authActions";
 
 class Navbar extends Component {
   onLogoutClick(e) {
-    e.preventDefault(); //This prevents default button click action
+    e.preventDefault();
     this.props.logoutUser();
   }
 
   render() {
     const { isAuthenticated } = this.props.auth;
-    const guestLinks = ( //These links will be shown when user isn't logged in
+    const guestLinks = (
       <div className="nav flex-column pl-1">
         <Link className="nav-link" to="/register">
           Sign Up
@@ -23,7 +23,7 @@ class Navbar extends Component {
       </div>
     );
 
-    const authLinks = ( //These links will be shown when user is logged in
+    const authLinks = (
        <div className= "nav flex-column pl-1">
           <Link className="nav-link" to="/dashboard">
         Dashboard
@@ -33,7 +33,7 @@ class Navbar extends Component {
         </Link>
           <a
             href="login"
-            onClick={this.onLogoutClick.bind(this)} //Binding onClick to defined function
+            onClick={this.onLogoutClick.bind(this)}
             className="nav-link"
           >
         Logout
@@ -47,7 +47,6 @@ class Navbar extends Component {
           <Link className="nav-link" to="/">
             <img src={require('../../img/logo.png')} className="img-fluid" alt="" />
           </Link>
-          {/* Check for which links are to be shown  */}
           {isAuthenticated ? authLinks : guestLinks}
         </div>
       </div>

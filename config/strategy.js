@@ -1,4 +1,3 @@
-//Jwt strategy definition
 const mongoose = require("mongoose");
 const jwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
