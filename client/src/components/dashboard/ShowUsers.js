@@ -11,7 +11,6 @@ class ShowUsers extends Component {
 
   render() {
     const { allUsers } = this.props.auth;
-    console.log(allUsers)
     return ( 
         <div className="col-6 m-auto dashboard">
             <h1 className="display-8 text-center">Admin Users</h1>
@@ -23,7 +22,7 @@ class ShowUsers extends Component {
                 </tr>
             </thead>
             <tbody>
-           {allUsers && allUsers.map((value, index) => {
+           { allUsers && allUsers.map((value, index) => {
              return <tr key={index}><td >{value.name}</td><td>{value.email}</td></tr>
             })}
             </tbody>

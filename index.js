@@ -6,6 +6,7 @@ const passport = require("passport");
 const users = require("./routes/api/users");
 
 const app = express();
+const path = require('path');
 
 //Database config
 const db = require("./config/keys").mongoURI;
@@ -26,8 +27,21 @@ app.use(passport.initialize());
 //Passport config
 require("./config/strategy")(passport);
 
-app.get("/", (req, res) => {
-  res.send("Hello");
+// app.get("/", (req, res) => {
+//   res.send("Hello");
+// });
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'client/build')));
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname+'/client/build/index.html'));
 });
 
 //User connection and validation route
