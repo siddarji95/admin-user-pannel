@@ -87,7 +87,7 @@ router.post("/login", (req, res) => {
 });
 
 router.get('/show_users', function(req, res) {
-    User.find({},function(err, result) {
+    User.find({ isAdmin : true },function(err, result) {
         if (err) throw err;
         res.send(result);
     });
