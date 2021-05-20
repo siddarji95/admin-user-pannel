@@ -1,3 +1,3 @@
-# SnakesAndLadders
+# Admin User Panel
 ### Demo
-https://snakesandladders95.herokuapp.com/
+https://admin-user-panel.herokuapp.com/
