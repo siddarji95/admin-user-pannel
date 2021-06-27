@@ -1,19 +1,25 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { getUsers } from "../../actions/authActions";
+import { getAdminUsers } from "../../actions/authActions";
 import { connect } from "react-redux";
 
 class ShowUsers extends Component {
 
-    componentDidMount() {
-        this.props.getUsers();
+  componentDidMount() {
+    if (this.props.auth.isAdmin) {
+      this.props.getAdminUsers();
     }
+    else {
+      this.props.getUsers();
+    }
+  }
 
   render() {
-    const { allUsers } = this.props.auth;
+    const { allUsers, isAdmin } = this.props.auth;
     return ( 
         <div className="col-6 m-auto dashboard">
-            <h1 className="display-8 text-center">Admin Users</h1>
+            <h1 className="display-8 text-center">{ isAdmin ? 'Admin ':''}Users</h1>
             <table className="table">
             <thead>
                 <tr>
@@ -42,5 +48,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { getUsers }
+    { getUsers, getAdminUsers }
   )(ShowUsers);

@@ -26,7 +26,20 @@ export const userLogin = userInfo => dispatch => {
       setAuthToken(token);
       const decoded = jwt_decode(token);
       dispatch(setPresentUser(decoded));
+      console.log(decoded);
     })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
+export const addUsers = (userInfo, history) => dispatch => {
+  axios
+    .post("/api/users/register", userInfo)
+    .then(res => history.push("/dashboard"))
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
@@ -38,6 +51,20 @@ export const userLogin = userInfo => dispatch => {
 export const getUsers = () => dispatch => {
   axios
     .get("/api/users/show_users")
+    .then(res => {
+      dispatch(showUsers(res.data))
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+}
+
+export const getAdminUsers = () => dispatch => {
+  axios
+    .get("/api/users/show_admin_users")
     .then(res => {
       dispatch(showUsers(res.data))
     })
