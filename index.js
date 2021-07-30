@@ -46,8 +46,11 @@ app.get("/", (req, res) => {
 //   res.sendFile(path.join(__dirname+'/client/build/index.html'));
 // });
 
-//User connection and validation route
-app.use("/api/users", users);
+//User connection and validation route and also used to get axios request in react
+app.use("/api/users", users); 
+
+// Now We can use axios with api/users API in react
+// axios.post("/api/users/register", userInfo)
 
 const port = process.env.PORT || 5000;
 
