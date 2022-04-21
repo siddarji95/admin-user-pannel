@@ -1,16 +1,29 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { Grid,Typography } from "@mui/material";
 
 class Dashboard extends Component {
   render() {
     const { user } = this.props.auth;
+    console.log(this.props)
 
-    return ( 
-        <div className="col-6 m-auto dashboard">
-          <h1 className="display-4">Dashboard</h1>
-          <h3 className="mt-4">Welcome, {user.name}!</h3>
-        </div>
+    return (
+      <Grid
+        container
+        direction='column'
+      >
+        <Grid item >
+          <Typography variant="h2" align="center" component="div">
+            Dashboard
+          </Typography>
+        </Grid>
+        <Grid item >
+          <Typography variant="p" align="center" component="div">
+            Welcome, {user.name}!
+          </Typography>
+        </Grid>
+      </Grid>
     );
   }
 }

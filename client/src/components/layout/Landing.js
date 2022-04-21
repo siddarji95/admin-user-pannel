@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
+import { Grid, Typography } from "@mui/material";
 
 class Landing extends Component {
   componentDidMount() {
@@ -12,14 +13,21 @@ class Landing extends Component {
 
   render() {
     return (
-        <div className="col-6 offset-md-3 text-center mt-5 m-auto">
-          <div className="card mt-5">
-            <div className="card-body">
-              <h1 className="display-4">Admin Panel</h1>
-              <p>Login or Sign Up for admin to continue</p>
-            </div>
-          </div>
-        </div>
+      <Grid
+        container
+        direction='column'
+      >
+        <Grid item >
+          <Typography variant="h2" align="center" component="div">
+            Admin Panel
+          </Typography>
+        </Grid>
+        <Grid item >
+          <Typography variant="p" align="center" component="div">
+            Login or Sign Up for admin to continue
+          </Typography>
+        </Grid>
+      </Grid>
     );
   }
 }

@@ -1,8 +1,17 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { userLogin } from "../../actions/authActions";
-import TextFieldGroup from "../common/TextFieldGroup";
+import isEmpty from "../../validation/isEmpty";
 
 class LoginPanel extends Component {
   constructor() {
@@ -49,43 +58,64 @@ class LoginPanel extends Component {
 
   render() {
     const { errors } = this.state;
-
+    const theme = createTheme()
     return (
-            <div className="col-6 m-auto">
-              <div className="card mt-4">
-                <div className="card-header bg-primary">
-                  <h1 className="display-4 text-white text-center">Log In</h1>
-                </div>
-                <div className="card-body bg-light">
-                  <p className="lead text-center text-dark">
-                    Sign in to your account
-                  </p>
-                  <form onSubmit={this.onSubmit}>
-                    <TextFieldGroup
-                      placeholder="Email address"
-                      name="email"
-                      type="email"
-                      value={this.state.email}
-                      onChange={this.onChange}
-                      error={errors.email}
-                    />
-                    <TextFieldGroup
-                      placeholder="Password"
-                      name="password"
-                      type="password"
-                      value={this.state.password}
-                      onChange={this.onChange}
-                      error={errors.password}
-                    />
-                    <input
-                      type="submit"
-                      className="btn btn-success btn-block mt-4"
-                      value="Login"
-                    />
-                  </form>
-                </div>
-              </div>
-            </div>
+      <ThemeProvider theme={theme}>
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <Box
+            sx={{
+              marginTop: 8,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign in
+            </Typography>
+            <Box component="form" onSubmit={this.onSubmit} noValidate sx={{ mt: 1 }}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                onChange={this.onChange}
+                error={!isEmpty(errors.email)}
+                helperText={errors.email}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                onChange={this.onChange}
+                error={!isEmpty(errors.password)}
+                helperText={errors.password}
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Sign In
+              </Button>
+            </Box>
+          </Box>
+        </Container>
+      </ThemeProvider>
     );
   }
 }

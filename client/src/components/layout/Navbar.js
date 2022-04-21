@@ -2,7 +2,13 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { logoutUser } from "../../actions/authActions";
+import CustomList from "./CustomList";
+import routes from "../../routes";
 
 class Navbar extends Component {
   onLogoutClick(e) {
@@ -11,45 +17,36 @@ class Navbar extends Component {
   }
 
   render() {
-    const { isAuthenticated } = this.props.auth;
-    const guestLinks = (
-      <div className="nav flex-column pl-1">
-        <Link className="nav-link" to="/register">
-          Sign Up
-          </Link>
-        <Link className="nav-link" to="/login">
-          Login
-          </Link>
-      </div>
-    );
-
-    const authLinks = (
-       <div className= "nav flex-column pl-1">
-          <Link className="nav-link" to="/dashboard">
-        Dashboard
-        </Link>
-        <Link className="nav-link" to="/show_users">
-        Admin Users
-        </Link>
-          <a
-            href="login"
-            onClick={this.onLogoutClick.bind(this)}
-            className="nav-link"
-          >
-        Logout
-          </a>
-        </div >
-    );
+    const { isAuthenticated, isAdmin } = this.props.auth;
+    console.log(this.props)
+    const guestLinks = routes.filter((route)=>{
+      return route.group === "guest"
+    });
+    const userAuthLinks = routes.filter((route)=>{
+      return route.group === "auth"
+    });
+    const adminAuthLinks = routes.filter((route)=>{
+      return route.group === "auth" || route.group === "admin"
+    });
 
     return (
-      <div className="col-3 px-1">
-        <div className="nav flex-column flex-nowrap vh-100 overflow-auto text-white p-2">
-          <Link className="nav-link" to="/">
-            <img src={require('../../img/logo.png')} className="img-fluid" alt="" />
-          </Link>
-          {isAuthenticated ? authLinks : guestLinks}
-        </div>
-      </div>
+      <>
+        {isAuthenticated ?
+          <>
+            <CustomList links={isAdmin ? adminAuthLinks : userAuthLinks} />
+            <ListItem button key="logout"
+              onClick={this.onLogoutClick.bind(this)}
+              component={Link}
+              to="/login"
+            >
+              <ListItemIcon>
+                <LogoutIcon />
+              </ListItemIcon>
+              <ListItemText primary="Logout" />
+            </ListItem>
+          </>
+          : <CustomList links={guestLinks} /> }
+      </>
     );
   }
 }

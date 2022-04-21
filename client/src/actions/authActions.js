@@ -37,14 +37,18 @@ export const userLogin = userInfo => dispatch => {
 };
 
 export const addUsers = (userInfo, history) => dispatch => {
+  console.log(userInfo)
   axios
-    .post("/api/users/register", userInfo)
+    .post("/api/users/add_users", userInfo)
     .then(res => history.push("/dashboard"))
-    .catch(err =>
+    .catch(err =>{
+      console.log(err)
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
       })
+    }
+  
     );
 };
 
@@ -84,6 +88,7 @@ export const showUsers = data => {
 }
 
 export const setPresentUser = decoded => {
+  console.log(decoded)
   return {
     type: PRESENT_USER,
     payload: decoded

@@ -2,11 +2,20 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import Grid from "@mui/material/Grid";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import isEmpty from "../../validation/isEmpty";
 import { addUsers } from "../../actions/authActions";
-import TextFieldGroup from "../common/TextFieldGroup";
-import RegisterPanel from "./components/authPanel/RegisterPanel";
 
-class AddUsers extends RegisterPanel {
+class AddUsers extends Component {
   constructor() {
     super();
     this.state = {
@@ -14,14 +23,14 @@ class AddUsers extends RegisterPanel {
       email: "",
       password: "",
       password2: "",
-      errors: {}
+      errors: {},
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
   componentDidMount() {
-    if (this.props.auth.isAuthenticated) {
+    if (!this.props.auth.isAdmin) {
       this.props.history.push("/dashboard");
     }
   }
@@ -43,68 +52,108 @@ class AddUsers extends RegisterPanel {
       name: this.state.name,
       email: this.state.email,
       password: this.state.password,
-      password2: this.state.password2
+      password2: this.state.password2,
     };
 
-    this.props.addUsers(newUser);
+    this.props.addUsers(newUser,this.props.history);
   }
 
   render() {
     const { errors } = this.state;
-
+    const theme = createTheme();
     return (
-            <div className="col-6 m-auto">
-              <div className="card mt-4">
-                <div className="card-header bg-primary">
-                  <h1 className="display-4 text-white text-center">Sign Up</h1>
-                </div>
-                <div className="card-body bg-light">
-                  <p className="lead text-dark text-center">
-                    Create a new account
-                  </p>
-                  <form noValidate onSubmit={this.onSubmit}>
-                    <TextFieldGroup
-                      placeholder="Name"
-                      name="name"
-                      value={this.state.name}
-                      onChange={this.onChange}
-                      error={errors.name}
-                    />
-
-                    <TextFieldGroup
-                      placeholder="Email"
-                      name="email"
-                      type="email"
-                      value={this.state.email}
-                      onChange={this.onChange}
-                      error={errors.email}
-                    />
-
-                    <TextFieldGroup
-                      placeholder="Password"
-                      name="password"
-                      type="password"
-                      value={this.state.password}
-                      onChange={this.onChange}
-                      error={errors.password}
-                    />
-                    <TextFieldGroup
-                      placeholder="Confirm Password"
-                      name="password2"
-                      type="password"
-                      value={this.state.password2}
-                      onChange={this.onChange}
-                      error={errors.password2}
-                    />
-                    <input
-                      type="submit"
-                      className="btn btn-danger btn-block mt-4"
-                      value="Sign Up"
-                    />
-                  </form>
-                </div>
-              </div>
-            </div>
+      <ThemeProvider theme={theme}>
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <Box
+            sx={{
+              marginTop: 8,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Add Users
+            </Typography>
+            <Box
+              component="form"
+              noValidate
+              onSubmit={this.onSubmit}
+              sx={{ mt: 3 }}
+            >
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <TextField
+                    autoComplete="name"
+                    name="name"
+                    required
+                    fullWidth
+                    id="name"
+                    label="Name"
+                    autoFocus
+                    onChange={this.onChange}
+                    error={!isEmpty(errors.name)}
+                    helperText={errors.name}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    onChange={this.onChange}
+                    error={!isEmpty(errors.email)}
+                    helperText={errors.email}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="new-password"
+                    onChange={this.onChange}
+                    error={!isEmpty(errors.password)}
+                    helperText={errors.password}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    name="password2"
+                    label="Confirm Password"
+                    type="password"
+                    id="password2"
+                    autoComplete="new-password"
+                    onChange={this.onChange}
+                    error={!isEmpty(errors.password2)}
+                    helperText={errors.password2}
+                  />
+                </Grid>
+              </Grid>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Add
+              </Button>
+            </Box>
+          </Box>
+        </Container>
+      </ThemeProvider>
     );
   }
 }
@@ -112,15 +161,12 @@ class AddUsers extends RegisterPanel {
 AddUsers.propTypes = {
   addUsers: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   auth: state.auth,
-  errors: state.errors
+  errors: state.errors,
 });
 
-export default connect(
-  mapStateToProps,
-  { addUsers }
-)(withRouter(AddUsers));
+export default connect(mapStateToProps, { addUsers })(withRouter(AddUsers));
